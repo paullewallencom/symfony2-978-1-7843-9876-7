@@ -1,0 +1,22 @@
+Chapter 7, file:
+
+src/AppBundle/Controller/TaskController.php, in line 28 there IS:
+
+----
+$newTask = new Task();
+----
+
+It should be replaced to:
+
+----
+$newTask = null;
+$id = $request->get('id');
+
+if ($id) {
+    $newTask = $em->find('AppBundle:Task', $id);
+}
+
+if (null === $newTask) {
+    $newTask = new Task();
+}
+----
